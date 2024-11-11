@@ -1,16 +1,26 @@
----
-
----
-
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>American Go Association Lookup</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="mx-auto p-4 md:p-6 lg:p-8 max-w-screen-sm">
+		<h1 class="text-xl font-semibold mb-2">American Go Association Lookup</h1>
+		<p>Look up a player by AGA ID:</p>
+
+		<input type="number" id="aga-id" placeholder="Enter AGA ID" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+		<a id="lookup-link" href="#" class="my-4 text-blue-600 hover:underline">Look up this player</a>
+
+		<script>
+			const input = document.getElementById('aga-id');
+			const link = document.getElementById('lookup-link');
+
+			input.addEventListener('input', () => {
+				link.href = `/player/${input.value}`;
+			});
+		</script>
+
 	</body>
 </html>

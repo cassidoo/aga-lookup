@@ -1,0 +1,31 @@
+---
+	const { id } = Astro.params;
+
+	let playerData = { error: "oops" };
+	try {
+		const response = await fetch(`https://corsproxy.io/?https%3A%2F%2Fagalookup.azurewebsites.net%2Fapi%2FAGALookup%3FAGAID%3D${id}`);
+		if (response.ok) {
+			playerData = await response.json();
+			playerData = playerData[0];
+		}
+	} catch (error) {
+		console.error(error);
+	}
+---
+
+<div class="mx-auto p-4 md:p-6 lg:p-8 max-w-screen-sm">
+	<a class="block mb-4 text-blue-600 hover:underline" href="https://www.usgo.org">Go back to usgo.org</a>
+
+	{playerData.error
+		? <p class="text-red-600">Error looking up player</p> : 
+			<div class="rounded-xl border p-4 shadow-sm max-w-md mx-auto">
+				<h1 class="text-xl font-semibold mb-2">{playerData.Name}</h1>
+				<p><strong>AGAID:</strong> {playerData.AGAID}</p>
+				<p><strong>Rating:</strong> {playerData.Rating}</p>
+				<p><strong>Sigma:</strong> {playerData.Sigma}</p>
+				<p><strong>Member Type:</strong> {playerData.MemberType}</p>
+				<p><strong>Chapter Name:</strong> {playerData.ChapterName}</p>
+				<p><strong>State:</strong> {playerData.State}</p>
+			</div>
+	}
+</div>
